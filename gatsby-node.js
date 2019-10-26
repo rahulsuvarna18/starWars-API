@@ -1,5 +1,4 @@
-const axios = require('axios')
-
+const axios = require('axios');
 /**
  * Implement Gatsby's Node APIs in this file.
  *
@@ -7,54 +6,35 @@ const axios = require('axios')
  */
 
 // You can delete this file if you're not using it
-
-exports.sourceNodes = async ({
+exports.sourceNodes = async ({ 
     actions,
     createContentDigest,
     createNodeId }) => {
     const { createNode } = actions
-    const starWarsData = await axios.get("https://swapi.co/api/people/");
-    const getHomeworld = async link => await axios.get(link);
+    const starWarsData = await axios.get("https://swapi.co/api/starships/");
     const data = starWarsData.data
-    const starwarsNode = people => {
+        //console.log(data)
+    const starShipNode = ship => {
+        console.log(ship)
         return {
-          id: createNodeId(`people-${people.name}`),
-          name: people.name,
-          height: people.height,
-          homeworld: people.homeworld,
+          id: createNodeId(`ship-${ship.name}`),
+          name: ship.name,
+          model: ship.model,
+          manufacturer: ship.manufacturer,
+          hyperdrive: ship.hyperdrive_rating,
           internal: {
-            type: 'Starships', //query name main heading
-            content: JSON.stringify(people),
-            contentDigest: createContentDigest(people)
+            type: 'Starships',
+            content: JSON.stringify(ship),
+            contentDigest: createContentDigest(ship)
           }
         }
       }
-      //created the node structure
-    const homeNode = homeworld => {
-        return {
-            id: createNodeId(`homeworld-${homeworld.name}`),
-            name: homeworld.name,
-            terrain: homeworld.terrain,
-            internal: {
-                type: 'Homeworld', //query name main heading
-                content: JSON.stringify(homeworld),
-                contentDigest: createContentDigest(homeworld)
-            }
-        }
-    }
-
-
-    //Separation of the method
-    const createWorld = async hwdata => {
-        const response = await getHomeworld(hwdata);
-        const node = homeNode(response.data)
-        await createNode(node)
-    }
-
+    //   console.log(starShipNode(starWarsData))
     data.results.forEach(starship => {
-        // console.log(starship)
-        createNode(starwarsNode(starship))
-        createWorld(starship.homeworld);
+        //console.log(starship)
+        createNode(starShipNode(starship))
     });
     
 }
+
+ 
