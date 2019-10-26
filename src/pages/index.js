@@ -22,6 +22,7 @@ const IndexPage = (props) => {
           <p>Ship Model: <span className="nodes">{node.node.model}</span></p>
           <p>Ship Manufacturer: <span className="nodes">{node.node.manufacturer}</span></p>
           <p>Hyperdrive Rating: <span className="nodes">{node.node.hyperdrive}</span></p>
+          <p>Starship Class: <span className="nodes">{node.node.starshipClass}</span></p>
           <p>____________________________</p> 
         </div>
       )
@@ -43,6 +44,7 @@ query Site {
         model
         manufacturer
         hyperdrive
+        starshipClass
         id
       }
     }

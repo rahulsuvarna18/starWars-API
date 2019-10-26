@@ -15,13 +15,14 @@ exports.sourceNodes = async ({
     const data = starWarsData.data
         //console.log(data)
     const starShipNode = ship => {
-        console.log(ship)
+        //console.log(ship)
         return {
           id: createNodeId(`ship-${ship.name}`),
           name: ship.name,
           model: ship.model,
           manufacturer: ship.manufacturer,
           hyperdrive: ship.hyperdrive_rating,
+          starshipClass: ship.starship_class,
           internal: {
             type: 'Starships',
             content: JSON.stringify(ship),
